@@ -18,6 +18,7 @@ build/
 # Node / React
 node_modules/
 dist/
+.vite/
 .DS_Store
 
 # IDE
