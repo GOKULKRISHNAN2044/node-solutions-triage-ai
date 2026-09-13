@@ -1,13 +1,16 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from repositories.database import Base, engine
+from repositories.database import Base, engine, SessionLocal
+from repositories.user_repo import UserRepository
 from router.router import router
 from settings import config
 
 import uvicorn
 
-# Create all DB tables on startup
+# Create all DB tables on startup and ensure default admin exists
 Base.metadata.create_all(bind=engine)
+with SessionLocal() as _startup_db:
+    UserRepository().seed_default_admin(_startup_db)
 
 app = FastAPI(
     title=config.app_title,
@@ -15,11 +18,11 @@ app = FastAPI(
     version=config.app_version,
 )
 
-# Allow React dev server to call the API
+# Allow all origins so local and deployed frontends (e.g. Vercel) can call the API
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://localhost:3000"],
-    allow_credentials=True,
+    allow_origins=["*"],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
