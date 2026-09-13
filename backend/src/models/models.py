@@ -10,6 +10,21 @@ class TriageRequest(BaseModel):
     request_text: str
 
 
+# ── Auth Models ───────────────────────────────────────────────────────────────
+
+class LoginRequest(BaseModel):
+    username: str
+    password: str
+
+
+class UserOut(BaseModel):
+    id: int
+    username: str
+    created_at: Optional[datetime] = None
+
+    model_config = ConfigDict(from_attributes=True)
+
+
 # ── Response (from Gemini) ────────────────────────────────────────────────────
 
 class TriageResult(BaseModel):

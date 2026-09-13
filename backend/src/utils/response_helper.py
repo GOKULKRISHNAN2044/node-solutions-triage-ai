@@ -12,3 +12,7 @@ def bad_request(message: str) -> JSONResponse:
 
 def server_error(message: str) -> JSONResponse:
     return JSONResponse(status_code=500, content=error_response("INTERNAL_ERROR", message, 500))
+
+
+def unauthorized(message: str = "Invalid username or password.") -> JSONResponse:
+    return JSONResponse(status_code=401, content=error_response("UNAUTHORIZED", message, 401))

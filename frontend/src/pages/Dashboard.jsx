@@ -4,7 +4,7 @@ import TriageCard from "../components/TriageCard";
 import HistoryPanel from "../components/HistoryPanel";
 import { triageRequest, getHistory } from "../services/api";
 
-const Dashboard = () => {
+const Dashboard = ({ user, onLogout }) => {
   const [result, setResult]       = useState(null);
   const [loading, setLoading]     = useState(false);
   const [error, setError]         = useState(null);
@@ -76,11 +76,24 @@ const Dashboard = () => {
               <div className="dashboard__brand-sub">Powered by Gemini 3.5 Flash Lite</div>
             </div>
           </div>
-          <div className="dashboard__stats">
+          <div className="dashboard__header-right">
             <div className="stat-chip">
               <span className="stat-chip__value">{history.length}</span>
               <span className="stat-chip__label">Requests</span>
             </div>
+            {user && (
+              <div className="user-profile-badge">
+                <span className="user-profile-name">👤 {user.username}</span>
+                <button
+                  type="button"
+                  className="btn-logout"
+                  onClick={onLogout}
+                  title="Sign out of system"
+                >
+                  Sign Out
+                </button>
+              </div>
+            )}
           </div>
         </header>
 

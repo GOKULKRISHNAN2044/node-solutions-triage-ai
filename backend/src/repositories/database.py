@@ -15,10 +15,21 @@ class Database:
         )
 
     def _create_engine(self):
-        return create_engine(
-            config.db_url,
-            connect_args={"check_same_thread": False},  # required for SQLite
-        )
+        url = config.db_url
+        if url.startswith("postgres://"):
+            url = url.replace("postgres://", "postgresql://", 1)
+
+        if url.startswith("sqlite"):
+            return create_engine(
+                url,
+                connect_args={"check_same_thread": False},  # required for SQLite
+            )
+        else:
+            return create_engine(
+                url,
+                pool_pre_ping=True,
+                pool_recycle=300,
+            )
 
 
 _db_instance = Database()
