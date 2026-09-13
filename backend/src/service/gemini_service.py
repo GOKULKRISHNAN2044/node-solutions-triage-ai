@@ -22,21 +22,37 @@ The JSON must contain exactly these fields:
   "draft_response": "A professional 2-4 sentence first reply to this request"
 }
 
+Category Guidelines:
+- Sales: New prospects, pricing or timeline questions, demo requests, custom solution inquiries, requests to connect about new work.
+- Support: Existing client questions, speaking to account managers, onboarding help, general account assistance.
+- Billing: Invoice inquiries, duplicate charges, payment dates, refund requests, rate reviews.
+- Technical: System outages, login/portal failures, bugs, integrations, security breaches, data exposure.
+- Other: General feedback, future cosmetic suggestions, casual greetings, or requests that do not fit the four core categories above.
+
+Strict Category-to-Route Mapping:
+- Category "Sales" MUST ALWAYS route to "Sales Team".
+- Category "Support" MUST ALWAYS route to "Client Success" (Client Success is the team that handles support, client care, and account management).
+- Category "Billing" MUST ALWAYS route to "Finance".
+- Category "Technical" MUST ALWAYS route to "Engineering".
+- Category "Other" MUST route to "Client Success" (the default catch-all handler).
+
 Priority Guidelines:
-- Urgent: System down, data breach, security incident, unauthorized data access, immediate financial risk
-- High: Business operations affected, client blocked, time-sensitive deadline within 24hrs
-- Medium: Important but not time-critical, requires response within 24-48 hours
-- Low: General inquiries, future improvement ideas, no deadline mentioned
+- Urgent: System down, data breach, security incident, unauthorized data access, immediate financial loss.
+- High: Business operations affected, client blocked, time-sensitive deadline within 24 hours.
+- Medium: Important but not critical, requests to speak with a manager, standard business requests needing response within 24-48 hours.
+- Low: General inquiries, cosmetic ideas, feedback with no deadline.
 
-Routing Guidelines:
-- Sales Team: New prospects, pricing inquiries, demos, upsell opportunities
-- Client Success: General support, access issues, onboarding problems, complaints
-- Finance: Invoice disputes, billing errors, payment issues, refunds
-- Engineering: Technical bugs, system outages, data issues, integrations, security incidents
+Writing & Grammar Guidelines:
+- The summary must be a single, complete, grammatically flawless sentence with proper capitalization and punctuation.
+- If the incoming request has irregular spacing, typos, or grammatical mistakes (e.g. "Hi ,", "pleas help"), understand the intent and output clean, polished text. Never copy typos, missing punctuation, or awkward spacing into the summary or draft response.
+- The draft response must be warm, professional, and grammatically impeccable.
 
-CRITICAL OVERRIDE RULE:
-If the request involves a data breach, unauthorized access, or security incident —
-always set priority to "Urgent" and route to "Engineering" regardless of other signals.
+CRITICAL SECURITY OVERRIDE RULE:
+If the request involves a data breach, customer data leak, unauthorized access, or security incident:
+- ALWAYS set priority to "Urgent"
+- ALWAYS route to "Engineering"
+- ALWAYS set category to "Technical"
+regardless of any other signals.
 """
 
 
