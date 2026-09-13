@@ -53,7 +53,7 @@ def success_response(data: Any, message: str = "Success") -> dict:
         status_code=200,
         request_id=str(uuid.uuid4()),
         message=message,
-    ).model_dump()
+    ).model_dump(mode="json")
 
 
 def error_response(code: str, message: str, status_code: int = 500) -> dict:
@@ -63,4 +63,4 @@ def error_response(code: str, message: str, status_code: int = 500) -> dict:
         status_code=status_code,
         request_id=str(uuid.uuid4()),
         message=message,
-    ).model_dump()
+    ).model_dump(mode="json")

@@ -20,10 +20,10 @@ def triage_request(payload: TriageRequest, db: Session = Depends(get_db)):
 
     try:
         result = service.process_request(db, payload.request_text.strip())
-        return ok(result.model_dump(), "Request triaged successfully.")
+        return ok(result.model_dump(mode="json"), "Request triaged successfully.")
     except ValueError as e:
         return bad_request(str(e))
-    except RuntimeError as e:
+    except Exception as e:
         return server_error(str(e))
 
 
@@ -34,6 +34,6 @@ def get_history(db: Session = Depends(get_db)):
     """
     try:
         records = service.get_history(db)
-        return ok([r.model_dump() for r in records], f"{len(records)} records found.")
+        return ok([r.model_dump(mode="json") for r in records], f"{len(records)} records found.")
     except Exception as e:
         return server_error(str(e))
